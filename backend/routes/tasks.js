@@ -14,9 +14,11 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new task
+// Create a new task
 router.post('/', async (req, res) => {
   try {
-    const task = new Task(req.body);
+    const { title, description, date } = req.body;
+    const task = new Task({ title, description, date });
     await task.save();
     res.status(201).json(task);
   } catch (err) {
