@@ -29,7 +29,15 @@ router.post('/', async (req, res) => {
 // Update a task
 router.put('/:id', async (req, res) => {
   try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    let update = { ...req.body };
+    // Only set updatedAt if editing title, description, or date
+    if (typeof req.body.title === 'string' || typeof req.body.description === 'string' || typeof req.body.date === 'string') {
+      update.updatedAt = new Date();
+    }
+    if (typeof req.body.completed === "boolean") {
+      update.completedAt = req.body.completed ? new Date() : null;
+    }
+    const task = await Task.findByIdAndUpdate(req.params.id, update, { new: true, runValidators: true });
     res.json(task);
   } catch (err) {
     res.status(400).json({ error: err.message });

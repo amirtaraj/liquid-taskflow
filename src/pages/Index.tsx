@@ -49,7 +49,16 @@ const Index = () => {
         {/* Header */}
         <div className="mb-6 flex items-center justify-between animate-fade-up">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-foreground">AmirTask</h1>
+            <h1
+              className="text-xl font-bold tracking-tight text-foreground cursor-pointer"
+              onClick={() => {
+                setActiveTab("tasks");
+                setSelectedDate(new Date());
+              }}
+              title="Go to Home"
+            >
+              AmirTask
+            </h1>
             <p className="text-xs text-muted-foreground">Stay on track</p>
           </div>
           <button

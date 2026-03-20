@@ -7,6 +7,8 @@ export interface Task {
   date?: string; // YYYY-MM-DD (optional, backend may not have it)
   completed: boolean;
   createdAt: string;
+  updatedAt?: string;
+  completedAt?: string;
 }
 
 // Set your backend API base URL here

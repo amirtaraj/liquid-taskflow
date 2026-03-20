@@ -38,6 +38,7 @@ const AddTaskModal = ({ selectedDate, onAdd, onEdit, onClose, task }: AddTaskMod
 
       {/* Modal */}
       <div className="glass-panel-strong relative z-10 mx-2 mb-4 w-full max-w-md rounded-2xl p-4 sm:p-6 sm:mb-0 animate-slide-up overflow-x-hidden">
+
         <div className="mb-5 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-foreground">{isEditing ? "Edit Task" : "New Task"}</h3>
           <button
@@ -50,9 +51,20 @@ const AddTaskModal = ({ selectedDate, onAdd, onEdit, onClose, task }: AddTaskMod
           </button>
         </div>
 
-        <p className="mb-4 text-xs text-muted-foreground">
+        <p className="mb-1 text-xs text-muted-foreground">
           {format(selectedDate, "EEEE, MMMM d, yyyy")}
         </p>
+        {isEditing && task && (
+          <div className="mb-2 text-[10px] text-muted-foreground">
+            <div>Created: {task.createdAt ? format(new Date(task.createdAt), "yyyy-MM-dd HH:mm") : "-"}</div>
+            {task.updatedAt && task.updatedAt !== task.createdAt && (
+              <div className="text-blue-700 dark:text-blue-400">Edited: {format(new Date(task.updatedAt), "yyyy-MM-dd HH:mm")}</div>
+            )}
+            {task.completedAt && (
+              <div className="text-green-700 dark:text-green-400">Completed: {format(new Date(task.completedAt), "yyyy-MM-dd HH:mm")}</div>
+            )}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>

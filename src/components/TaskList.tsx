@@ -86,6 +86,7 @@ const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick, onEditC
                     {task.description}
                   </p>
                 )}
+                {/* Timestamps only shown in modal */}
               </div>
               <button
                 onClick={() => onRemove(task._id)}

@@ -80,13 +80,52 @@ const SettingsScreen = () => {
             </div>
             <div className="flex justify-between">
               <span>Version</span>
-              <span className="font-medium text-foreground">1.0.0</span>
+              <span className="font-medium text-foreground">1.0.1</span>
+            </div>
+            <div className="flex justify-between">
+              <span>FrontEnd</span>
+              <span className="font-medium text-foreground">React</span>
             </div>
             <div className="flex justify-between">
               <span>Storage</span>
-              <span className="font-medium text-foreground">Local</span>
+              <span className="font-medium text-foreground">mongoDB Atlas</span>
             </div>
-          </div>
+            
+              <div className="flex justify-between">
+                <span>Front End</span>
+                <span className="font-medium text-foreground">Hosted on Vercel</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Back End</span>
+                <span className="font-medium text-foreground">Hosted on Render</span>
+              </div>
+              <div className="flex justify-between">
+                <span>UI Design</span>
+                <span className="font-medium text-foreground">by Lovable</span>
+              </div>
+              <div className="flex justify-between">
+                <span>LinkedIn</span>
+                <a
+                  href="https://www.linkedin.com/in/amirtaraj"
+                  className="font-medium text-foreground hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://www.linkedin.com/in/amirtaraj
+                </a>
+              </div>
+              <div className="flex justify-between">
+              <span>Webpage</span>
+              <a
+                href="https://www.amirtaraj.com/"
+                className="font-medium text-foreground hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://www.amirtaraj.com/
+              </a>
+            </div>
+            </div>
         </div>
       </div>
     </div>
