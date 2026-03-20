@@ -8,8 +8,16 @@ import journalRouter from './routes/journal.js';
 
 dotenv.config();
 
+
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:8080",
+  "http://localhost:3000",
+  "https://amirtask.vercel.app"
+];
+app.use(cors({
+  origin: allowedOrigins
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
