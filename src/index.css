@@ -66,6 +66,20 @@
 }
 
 @layer components {
+  .dark .glass-panel,
+  .dark .glass-panel-strong,
+  .dark .glass-button,
+  .dark .glass-input {
+    --glass-bg: 230 20% 14% / 0.6;
+    --glass-border: 0 0% 100% / 0.08;
+    --glass-shadow: 230 30% 8%;
+    --glass-shine: 0 0% 100% / 0.06;
+  }
+
+  .dark .glass-panel-strong {
+    background: hsla(230 20% 14% / 0.85);
+  }
+
   .glass-panel {
     background: hsla(var(--glass-bg));
     backdrop-filter: blur(var(--glass-blur));

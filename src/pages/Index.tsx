@@ -4,11 +4,15 @@ import LoginScreen from "@/components/LoginScreen";
 import CalendarView from "@/components/CalendarView";
 import TaskList from "@/components/TaskList";
 import AddTaskModal from "@/components/AddTaskModal";
+import BottomTabBar from "@/components/BottomTabBar";
+import JournalScreen from "@/components/JournalScreen";
+import SettingsScreen from "@/components/SettingsScreen";
 import { useTaskStore } from "@/hooks/useTaskStore";
 import loginBg from "@/assets/login-bg.jpg";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activeTab, setActiveTab] = useState<"tasks" | "journal" | "settings">("tasks");
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAddModal, setShowAddModal] = useState(false);
@@ -36,11 +40,11 @@ const Index = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background */}
-      <img src={loginBg} alt="" className="fixed inset-0 h-full w-full object-cover opacity-40" />
+      <img src={loginBg} alt="" className="fixed inset-0 h-full w-full object-cover opacity-40 dark:opacity-20" />
       <div className="fixed inset-0 bg-background/60 backdrop-blur-sm" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-md px-4 pb-8 pt-6">
+      <div className="relative z-10 mx-auto max-w-md px-4 pb-24 pt-6">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between animate-fade-up">
           <div>
@@ -60,27 +64,38 @@ const Index = () => {
           </button>
         </div>
 
-        {/* Calendar */}
-        <CalendarView
-          currentMonth={currentMonth}
-          selectedDate={selectedDate}
-          onSelectDate={setSelectedDate}
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-          taskCountByDate={taskCountByDate}
-        />
+        {/* Tab content */}
+        {activeTab === "tasks" && (
+          <>
+            <CalendarView
+              currentMonth={currentMonth}
+              selectedDate={selectedDate}
+              onSelectDate={setSelectedDate}
+              onPrevMonth={handlePrevMonth}
+              onNextMonth={handleNextMonth}
+              taskCountByDate={taskCountByDate}
+            />
+            <div className="mt-6">
+              <TaskList
+                tasks={tasksForDate}
+                selectedDate={selectedDate}
+                onToggle={toggleTask}
+                onRemove={removeTask}
+                onAddClick={() => setShowAddModal(true)}
+              />
+            </div>
+          </>
+        )}
 
-        {/* Tasks */}
-        <div className="mt-6">
-          <TaskList
-            tasks={tasksForDate}
-            selectedDate={selectedDate}
-            onToggle={toggleTask}
-            onRemove={removeTask}
-            onAddClick={() => setShowAddModal(true)}
-          />
-        </div>
+        {activeTab === "journal" && (
+          <JournalScreen tasks={tasks} onRemove={removeTask} onToggle={toggleTask} />
+        )}
+
+        {activeTab === "settings" && <SettingsScreen />}
       </div>
+
+      {/* Bottom Tab Bar */}
+      <BottomTabBar activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Add Task Modal */}
       {showAddModal && (
