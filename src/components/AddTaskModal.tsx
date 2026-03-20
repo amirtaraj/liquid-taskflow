@@ -29,15 +29,15 @@ const AddTaskModal = ({ selectedDate, onAdd, onEdit, onClose, task }: AddTaskMod
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center w-full max-w-full overflow-x-hidden">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-foreground/10 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-foreground/10 backdrop-blur-sm animate-fade-in w-full max-w-full overflow-x-hidden"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="glass-panel-strong relative z-10 mx-4 mb-4 w-full max-w-md rounded-2xl p-6 sm:mb-0 animate-slide-up">
+      <div className="glass-panel-strong relative z-10 mx-2 mb-4 w-full max-w-md rounded-2xl p-4 sm:p-6 sm:mb-0 animate-slide-up overflow-x-hidden">
         <div className="mb-5 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-foreground">{isEditing ? "Edit Task" : "New Task"}</h3>
           <button
