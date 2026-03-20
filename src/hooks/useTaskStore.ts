@@ -64,5 +64,15 @@ export function useTaskStore() {
     [tasks]
   );
 
-  return { tasks, addTask, removeTask, toggleTask, getTasksForDate };
+  const editTask = useCallback((id: string, title: string, description: string) => {
+    setTasks((prev) => {
+      const next = prev.map((t) =>
+        t.id === id ? { ...t, title, description } : t
+      );
+      saveTasks(next);
+      return next;
+    });
+  }, []);
+
+  return { tasks, addTask, removeTask, toggleTask, getTasksForDate, editTask };
 }

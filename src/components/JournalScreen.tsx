@@ -73,7 +73,7 @@ const JournalScreen = ({ tasks, onRemove, onToggle }: JournalScreenProps) => {
                       </svg>
                     </button>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-muted-foreground line-through leading-snug">
+                      <p className="text-sm font-medium text-muted-foreground leading-snug">
                         {task.title}
                       </p>
                       {task.description && (

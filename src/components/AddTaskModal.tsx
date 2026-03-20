@@ -1,20 +1,30 @@
 import { useState } from "react";
 import { format } from "date-fns";
 
+import type { Task } from "@/hooks/useTaskStore";
+
 interface AddTaskModalProps {
   selectedDate: Date;
   onAdd: (title: string, description: string, date: string) => void;
+  onEdit?: (id: string, title: string, description: string) => void;
   onClose: () => void;
+  task?: Task | null;
 }
 
-const AddTaskModal = ({ selectedDate, onAdd, onClose }: AddTaskModalProps) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+
+const AddTaskModal = ({ selectedDate, onAdd, onEdit, onClose, task }: AddTaskModalProps) => {
+  const isEditing = !!task;
+  const [title, setTitle] = useState(task ? task.title : "");
+  const [description, setDescription] = useState(task ? task.description || "" : "");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
-    onAdd(title.trim(), description.trim(), format(selectedDate, "yyyy-MM-dd"));
+    if (isEditing && onEdit && task) {
+      onEdit(task.id, title.trim(), description.trim());
+    } else {
+      onAdd(title.trim(), description.trim(), format(selectedDate, "yyyy-MM-dd"));
+    }
     onClose();
   };
 
@@ -29,7 +39,7 @@ const AddTaskModal = ({ selectedDate, onAdd, onClose }: AddTaskModalProps) => {
       {/* Modal */}
       <div className="glass-panel-strong relative z-10 mx-4 mb-4 w-full max-w-md rounded-2xl p-6 sm:mb-0 animate-slide-up">
         <div className="mb-5 flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-foreground">New Task</h3>
+          <h3 className="text-lg font-semibold text-foreground">{isEditing ? "Edit Task" : "New Task"}</h3>
           <button
             onClick={onClose}
             className="glass-button flex h-8 w-8 items-center justify-center rounded-xl text-muted-foreground"
@@ -79,7 +89,7 @@ const AddTaskModal = ({ selectedDate, onAdd, onClose }: AddTaskModalProps) => {
             disabled={!title.trim()}
             className="mt-1 w-full rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-200 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] disabled:opacity-40 disabled:shadow-none"
           >
-            Add Task
+            {isEditing ? "Save" : "Add Task"}
           </button>
         </form>
       </div>

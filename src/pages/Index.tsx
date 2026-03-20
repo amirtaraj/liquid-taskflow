@@ -7,7 +7,7 @@ import AddTaskModal from "@/components/AddTaskModal";
 import BottomTabBar from "@/components/BottomTabBar";
 import JournalScreen from "@/components/JournalScreen";
 import SettingsScreen from "@/components/SettingsScreen";
-import { useTaskStore } from "@/hooks/useTaskStore";
+import { useTaskStore, Task } from "@/hooks/useTaskStore";
 import loginBg from "@/assets/login-bg.jpg";
 
 const Index = () => {
@@ -16,8 +16,9 @@ const Index = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAddModal, setShowAddModal] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
-  const { tasks, addTask, removeTask, toggleTask, getTasksForDate } = useTaskStore();
+  const { tasks, addTask, removeTask, toggleTask, getTasksForDate, editTask } = useTaskStore();
 
   const selectedDateKey = format(selectedDate, "yyyy-MM-dd");
   const tasksForDate = useMemo(() => getTasksForDate(selectedDateKey), [getTasksForDate, selectedDateKey]);
@@ -81,7 +82,14 @@ const Index = () => {
                 selectedDate={selectedDate}
                 onToggle={toggleTask}
                 onRemove={removeTask}
-                onAddClick={() => setShowAddModal(true)}
+                onAddClick={() => {
+                  setEditingTask(null);
+                  setShowAddModal(true);
+                }}
+                onEditClick={(task) => {
+                  setEditingTask(task);
+                  setShowAddModal(true);
+                }}
               />
             </div>
           </>
@@ -102,7 +110,12 @@ const Index = () => {
         <AddTaskModal
           selectedDate={selectedDate}
           onAdd={addTask}
-          onClose={() => setShowAddModal(false)}
+          onEdit={editTask}
+          onClose={() => {
+            setShowAddModal(false);
+            setEditingTask(null);
+          }}
+          task={editingTask}
         />
       )}
     </div>

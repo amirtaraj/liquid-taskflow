@@ -7,9 +7,10 @@ interface TaskListProps {
   onToggle: (id: string) => void;
   onRemove: (id: string) => void;
   onAddClick: () => void;
+  onEditClick: (task: Task) => void;
 }
 
-const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick }: TaskListProps) => {
+const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick, onEditClick }: TaskListProps) => {
   const isToday = format(new Date(), "yyyy-MM-dd") === format(selectedDate, "yyyy-MM-dd");
   const dateLabel = isToday ? "Today" : format(selectedDate, "EEEE, MMM d");
 
@@ -72,7 +73,11 @@ const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick }: TaskL
                 )}
               </button>
 
-              <div className="min-w-0 flex-1">
+              <div
+                className="min-w-0 flex-1 cursor-pointer"
+                onClick={() => onEditClick(task)}
+                title="Edit task"
+              >
                 <p className={`text-sm font-medium leading-snug transition-all ${task.completed ? "text-muted-foreground line-through" : "text-foreground"}`}>
                   {task.title}
                 </p>
@@ -82,7 +87,6 @@ const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick }: TaskL
                   </p>
                 )}
               </div>
-
               <button
                 onClick={() => onRemove(task.id)}
                 className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-muted-foreground/0 transition-all duration-200 group-hover:text-destructive group-hover:bg-destructive/10 active:scale-90"
