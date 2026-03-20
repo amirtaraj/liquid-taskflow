@@ -14,7 +14,7 @@ const API_BASE =
   import.meta.env.VITE_API_URL ||
   (window.location.hostname === "localhost"
     ? "http://localhost:5000/api"
-    : "https://your-backend-url/api");
+    : "https://amirtaskbackend-bu5604wcq-amirtarajs-projects.vercel.app/api");
 
 export function useTaskStore() {
   const [tasks, setTasks] = useState<Task[]>([]);
