@@ -54,12 +54,12 @@ const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick, onEditC
         <div className="flex flex-col gap-2">
           {tasks.map((task, i) => (
             <div
-              key={task.id}
+              key={task._id}
               className="glass-panel group flex items-start gap-3 rounded-2xl p-4 transition-all duration-200 hover:shadow-lg animate-fade-up"
               style={{ animationDelay: `${0.05 * i}s` }}
             >
               <button
-                onClick={() => onToggle(task.id)}
+                onClick={() => onToggle(task._id)}
                 className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-lg border-2 transition-all duration-200 ${
                   task.completed
                     ? "border-primary bg-primary"
@@ -88,7 +88,7 @@ const TaskList = ({ tasks, selectedDate, onToggle, onRemove, onAddClick, onEditC
                 )}
               </div>
               <button
-                onClick={() => onRemove(task.id)}
+                onClick={() => onRemove(task._id)}
                 className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-muted-foreground/0 transition-all duration-200 group-hover:text-destructive group-hover:bg-destructive/10 active:scale-90"
                 aria-label="Remove task"
               >
