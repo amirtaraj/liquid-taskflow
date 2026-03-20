@@ -21,7 +21,7 @@ const AddTaskModal = ({ selectedDate, onAdd, onEdit, onClose, task }: AddTaskMod
     e.preventDefault();
     if (!title.trim()) return;
     if (isEditing && onEdit && task) {
-      onEdit(task.id, title.trim(), description.trim());
+      onEdit(task._id, title.trim(), description.trim(), format(selectedDate, "yyyy-MM-dd"));
     } else {
       onAdd(title.trim(), description.trim(), format(selectedDate, "yyyy-MM-dd"));
     }

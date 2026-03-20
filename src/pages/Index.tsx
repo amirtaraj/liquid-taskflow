@@ -39,13 +39,13 @@ const Index = () => {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden max-w-full w-full">
       {/* Background */}
       <img src={loginBg} alt="" className="fixed inset-0 h-full w-full object-cover opacity-40 dark:opacity-20" />
       <div className="fixed inset-0 bg-background/60 backdrop-blur-sm" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-md px-4 pb-24 pt-6">
+      <div className="relative z-10 mx-auto max-w-md px-2 sm:px-4 pb-24 pt-6 w-full">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between animate-fade-up">
           <div>

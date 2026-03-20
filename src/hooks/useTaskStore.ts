@@ -68,11 +68,11 @@ export function useTaskStore() {
 
   // Edit a task
   const editTask = useCallback(
-    async (id: string, title: string, description: string) => {
+    async (id: string, title: string, description: string, date?: string) => {
       const res = await fetch(`${API_BASE}/tasks/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description, ...(date ? { date } : {}) }),
       });
       if (res.ok) {
         const updated = await res.json();
